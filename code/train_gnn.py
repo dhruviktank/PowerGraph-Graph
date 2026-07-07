@@ -515,7 +515,21 @@ def train_gnn(args, args_group):
         if args.datatype == 'binary':
             roc_auc = roc_auc_score(target_values, predicted_values, average='weighted')
         else:
-            roc_auc = roc_auc_score(target_values, predicted_probs, multi_class='ovr', average='weighted')
+            num_classes = predicted_probs.shape[1]
+            present_classes = np.unique(target_values)
+
+            if len(present_classes) == num_classes:
+                roc_auc = roc_auc_score(
+                    target_values,
+                    predicted_probs,
+                    multi_class='ovr',
+                    average='weighted'
+                )
+            else:
+                print(f"Skipping ROC AUC: only classes {present_classes} present, "
+                    f"but model predicts {num_classes} classes.")
+                roc_auc = float("nan")
+            # roc_auc = roc_auc_score(target_values, predicted_probs, multi_class='ovr', average='weighted')
         precision = precision_score(target_values, predicted_values, average='weighted', zero_division=0.0)
         recall = recall_score(target_values, predicted_values, average='weighted', zero_division=0.0)
         # Create a DataFrame for data
