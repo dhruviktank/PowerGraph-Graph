@@ -550,25 +550,24 @@ if __name__ == "__main__":
 
     # for loop the training architecture for the number of layers and hidden dimensions
     rnd_seeds = [0, 100, 300, 700, 1000]
-    tasks = ['regression', 'binary', 'multiclass']
-    powergrids = ['ieee24', 'uk', 'ieee39', 'ieee118']
-    models = ['gat', 'gcn', 'gin', 'transformer']
-    for powergrid in powergrids:
-        args.dataset_name = powergrid
-        for task in tasks:
-            args.datatype = task
-            for model in models:
-                args.model_name = model
-                for rnd_seed in rnd_seeds:
-                    args.seed = rnd_seed
-                    fix_random_seed(rnd_seed)
-                    args.num_layers = 3
-                    args.hidden_dim = 16
+    # tasks = ['regression', 'binary', 'multiclass']
+    # powergrids = ['ieee24', 'uk', 'ieee39', 'ieee118']
+    # models = ['gat', 'gcn', 'gin', 'transformer']
+    # for powergrid in powergrids:
+    #     args.dataset_name = powergrid
+    #     for task in tasks:
+    #         args.datatype = task
+    #         for model in models:
+    #             args.model_name = model
+    for rnd_seed in rnd_seeds:
+        args.seed = rnd_seed
+        fix_random_seed(rnd_seed)
+        # args.num_layers = 3
+        # args.hidden_dim = 16
+        args_group = create_args_group(parser, args)
+        print(f"Hidden_dim: {args.hidden_dim}, Num_layers: {args.num_layers}, model {args.model_name}, data {args.dataset_name}, task {args.datatype}, rnd_seed {rnd_seed} ")
+        train_gnn(args, args_group)
 
-                    args_group = create_args_group(parser, args)
-                    print(f"Hidden_dim: {args.hidden_dim}, Num_layers: {args.num_layers}, model {args.model_name}, data {args.dataset_name}, task {args.datatype}, rnd_seed {rnd_seed} ")
-                    train_gnn(args, args_group)
-
-        print("CHANGE POWERGRID")
+        # print("CHANGE POWERGRID")
 
     print("END TRAINING OF POWERGRAPH")
