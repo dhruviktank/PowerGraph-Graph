@@ -3,7 +3,7 @@
 import os
 
 # CKPT_ROOT = "C:/Users/avarbella/Documents/GraphGym-master/GraphGym-master/graphframex-main/"
-CKPT_ROOT = "C:/Users/avarbella/Documents/01_GraphGym/PowerGraph-master/code/"
+CKPT_ROOT = "/kaggle/working/PowerGraph-Graph/code/"
 DATA_DIR = CKPT_ROOT + "dataset/"
 MODEL_DIR = CKPT_ROOT + "model/"
 LOG_DIR = CKPT_ROOT + "logs/"
